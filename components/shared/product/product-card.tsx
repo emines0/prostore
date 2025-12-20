@@ -1,0 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Link from "next/link"
+import Image from "next/image"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Bold } from "lucide-react"
+
+const ProductCard = ({ product }: { product: any }) => {
+  return (
+    <Card className="w-full max-w-sm">
+      <CardHeader className="p-0 items-center">
+        <Link href={`/products/${product.slug}`} className="block w-full">
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            width={300}
+            height={300}
+            className="object-cover rounded-t-lg"
+            priority={true}
+          />
+        </Link>
+      </CardHeader>
+      <CardContent className="p-4 grid gap-4">
+        <div className="text-xs">{product.brand}</div>
+        <Link href={`/products/${product.slug}`} className="block">
+          <h2 className="text-sm font-medium hover:underline">{product.name}</h2>
+        </Link>
+        <div className="flex-between gap-4">
+          <p>{product.rating} Stars</p>
+          {product.stock > 0 ? (
+            <p className="font-bold">${product.price.toFixed(2)}</p>
+          ) : (
+            <p className="text-red-500">Out of Stock</p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default ProductCard
